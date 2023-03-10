@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: Install Jira CLI
         run: |
-          sudo apt-get install curl -y
           curl -L https://github.com/Netflix-Skunkworks/go-jira/releases/download/v1.0.32/jira-linix-amd64 -o jira
           chmod +x jira
       - name: Link PR to Jira issue
