@@ -1,19 +1,22 @@
-on:
+'on':
   pull_request:
-    types: [opened, edited]
-
+    types:
+      - opened
+      - edited
 jobs:
   link_to_jira_issue:
     runs-on: ubuntu-latest
     steps:
       - name: Install Jira CLI
         run: npm install -g jira-cli
-
       - name: Link PR to Jira issue
         env:
-          JIRA_PROJECT_KEY: "KS"
-          JIRA_SITE: "https://mdial89f.atlassian.net/jira"
-          JIRA_ISSUE_ID: ${{ env.JIRA_PROJECT_KEY }}-${{ github.event.pull_request.number }}
-        run: |
-          jira login --user "${{ secrets.JIRA_USERNAME }}" --password "${{ secrets.JIRA_API_TOKEN }}" --site "${{ env.JIRA_SITE }}"
-          jira issue link --project "${{ env.JIRA_PROJECT_KEY }}" --issue "${{ env.JIRA_ISSUE_ID }}" --to "${{ github.event.pull_request.html_url }}"
+          JIRA_PROJECT_KEY: KS
+          JIRA_SITE: 'https://mdial89f.atlassian.net/jira'
+          JIRA_ISSUE_ID: '${{ env.JIRA_PROJECT_KEY }}-${{ github.event.pull_request.number }}'
+        run: >
+          jira login --user "${{ secrets.JIRA_USERNAME }}" --password "${{
+          secrets.JIRA_API_TOKEN }}" --site "${{ env.JIRA_SITE }}"
+
+          jira issue link --project "${{ env.JIRA_PROJECT_KEY }}" --issue "${{
+          env.JIRA_ISSUE_ID }}" --to "${{ github.event.pull_request.html_url }}"
