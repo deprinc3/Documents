@@ -7,9 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Jira CLI
-        run: |
-          curl -L https://github.com/cpanminus/cpanminus/raw/master/cpanm | perl - App::cpanminus
-          cpanm --notest --quiet --local-lib=~/perl5 App::jira::cli
+        run: npm install -g jira-cli
 
       - name: Link PR to Jira issue
         env:
