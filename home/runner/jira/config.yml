@@ -1,0 +1,4 @@
+name: 'mdial89f.atlassian.net'
+url: 'https://mdial89f.atlassian.net/jira'
+username: 'deprinc3'
+api-token: ${{ secrets.JIRA_API_TOKEN }}
