@@ -1,0 +1,26 @@
+name: Add comment to Jira issue
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get PR information
+        run: |
+          echo "PR number: ${{ github.event.pull_request.number }}"
+          echo "Commit SHA: ${{ github.event.pull_request.head.sha }}"
+      - name: Add comment to Jira issue
+        uses: atlassian/gajira-comment@master
+        with:
+          jira-base-url: 'https://mdial89f.atlassian.net/jira'
+          jira-user-email: ${{ secrets.JIRA_EMAIL }}
+          jira-api-token: ${{ secrets.JIRA_API_TOKEN }}
+          issue-key: 'KS-2'
+          comment: |
+            This pull request has been created:
+            * Pull request: ${{ github.event.pull_request.html_url }}
+            * Commit SHA: ${{ github.event.pull_request.head.sha }}
