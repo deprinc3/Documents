@@ -20,5 +20,4 @@ jobs:
       uses: atlassian/gajira-comment@v3
       with:
         issue: KS-2
-        comment: ${{ github.event.pusher.name }} pushed to repository ${{ github.event.repository.Document }}
-        
+        comment: Pull Request is ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/{{ github.event.pull_request.number }}        
