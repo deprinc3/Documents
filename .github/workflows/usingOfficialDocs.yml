@@ -22,5 +22,5 @@ jobs:
       env:
         GH_EVENT: ${{ toJson(github) }}
       with:
-        issue: ${{ github.event.pull_request.title }} | grep -oE '\b[A-Z]+-[0-9]+\b'
+        issue: $(echo ${{ github.event.pull_request.title }} | grep -oE '\b[A-Z]+-[0-9]+\b')
         comment: GHEVENT ${{ env.GH_EVENT }} ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/${{ github.event.pull_request.number }}  full event is  ${{ github.event }}   
