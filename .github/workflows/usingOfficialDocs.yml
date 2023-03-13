@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Jira Example
     steps:
+    - run: TICKET_NAME=$(echo ${{ github.event.pull_request.title }} | grep -oE '\b[A-Z]+-[0-9]+\b')
     - name: Login
       uses: atlassian/gajira-login@v3
       env:
@@ -22,5 +23,5 @@ jobs:
       env:
         GH_EVENT: ${{ toJson(github) }}
       with:
-        issue: $(echo ${{ github.event.pull_request.title }} | grep -oE '\b[A-Z]+-[0-9]+\b')
-        comment: GHEVENT ${{ env.GH_EVENT }} ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/${{ github.event.pull_request.number }}  full event is  ${{ github.event }}   
+        issue: $TICKET_NAME
+        comment: ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/${{ github.event.pull_request.number }}  full event is  ${{ github.event }}   
