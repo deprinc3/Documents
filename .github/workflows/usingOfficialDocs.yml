@@ -16,8 +16,11 @@ jobs:
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         
+        
     - name: Comment on issue
       uses: atlassian/gajira-comment@v3
+      env:
+        GH_EVENT: ${{ toJson(github) }}
       with:
         issue: KS-2
-        comment: $(echo "${{ github.event.head_commit.message }}" | grep -Eo 'KS-[0-9]+' | head -n1) last commit ${{ github.event.head_commit.message }} ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/${{ github.event.pull_request.number }}  full event is  ${{ github.event }}   
+        comment: $(echo "${{ github.event.head_commit.message }}" | grep -Eo 'KS-[0-9]+' | head -n1) GHEVENT "env.GH_EVENT" last commit ${{ github.event.head_commit.message }} ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/${{ github.event.pull_request.number }}  full event is  ${{ github.event }}   
