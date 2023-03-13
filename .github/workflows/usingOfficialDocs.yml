@@ -23,5 +23,5 @@ jobs:
       env:
         GH_EVENT: ${{ toJson(github) }}
       with:
-        issue: $TICKET_NAME
+        issue: ${{ TICKET_NAME }}
         comment: ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/${{ github.event.pull_request.number }}  full event is  ${{ github.event }}   
