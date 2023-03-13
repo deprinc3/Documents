@@ -1,0 +1,24 @@
+
+on:
+  pull_request:
+    types: [opened, edited]
+name: hithub to jira2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Jira Example
+    steps:
+    - name: Login
+      uses: atlassian/gajira-login@v3
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}        
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        
+    - name: Comment on issue
+      uses: atlassian/gajira-comment@v3
+      with:
+        issue: KS-2
+        comment: ${{ github.event.pusher.name }} pushed to repository ${{ github.event.repository.Document }}
+        
