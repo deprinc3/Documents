@@ -26,4 +26,4 @@ jobs:
         GH_EVENT: ${{ toJson(github) }}
       with:
         issue: ${{ steps.get_t.outputs.TICKET_NAME }}
-        comment: ${{ github.event_name }}  https://github.com/deprinc3/Document/pull/${{ github.event.pull_request.number }}    
+        comment: ${{ github.event_name }} ${{ github.event.pull_request._links.html.href }}    
