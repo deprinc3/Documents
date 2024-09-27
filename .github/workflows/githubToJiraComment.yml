@@ -1,26 +1,22 @@
-name: Add comment to Jira issue
-on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+on: push
+
+name: hithub to jira
 
 jobs:
-  add-comment:
+  build:
     runs-on: ubuntu-latest
+    name: Jira Example
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Get PR information
-        run: |
-          echo "PR number: ${{ github.event.pull_request.number }}"
-          echo "Commit SHA: ${{ github.event.pull_request.head.sha }}"
-      - name: Add comment to Jira issue
-        uses: atlassian/gajira-comment@master
-        with:
-          jira-base-url: 'https://mdial89f.atlassian.net/jira'
-          jira-user-email: ${{ secrets.JIRA_EMAIL }}
-          jira-api-token: ${{ secrets.JIRA_API_TOKEN }}
-          issue-key: 'KS-2'
-          comment: |
-            This pull request has been created:
-            * Pull request: ${{ github.event.pull_request.html_url }}
-            * Commit SHA: ${{ github.event.pull_request.head.sha }}
+    - name: Login
+      uses: atlassian/gajira-login@v3
+      env:
+        JIRA_BASE_URL: 'https://mdial89f.atlassian.net/jira'
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        
+    - name: Comment on issue
+      uses: atlassian/gajira-comment@v3
+      with:
+        issue: KS-2
+        comment: ${{ github.event.pusher.name }} pushed to repository ${{ github.event.repository.Document }}
+        

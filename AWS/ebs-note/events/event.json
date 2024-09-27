@@ -6,7 +6,7 @@
   "isBase64Encoded": false,
   "queryStringParameters": {
     "foo": "bar"
-  },
+  },       
   "pathParameters": {
     "proxy": "/path/to/resource"
   },
